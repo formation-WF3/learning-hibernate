@@ -1,0 +1,19 @@
+.env
+/mysql-data/
+
+/.idea/jarRepositories.xml
+/.idea/springboot-angular-docker-boilerplate.iml
+/.idea/modules.xml
+/.idea/compiler.xml
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+/encodings.xml
+/.idea/workspace.xml
+/.idea/libraries/
