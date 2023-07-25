@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 
 @Controller
@@ -59,6 +62,20 @@ public class IndexController {
             model.addAttribute("contact", contact);
             model.addAttribute("emailError", "L'email existe déjà");
             return "contact/form";
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/contact/{id}/delete")
+    public String contactDelete(@PathVariable Integer id,
+                                RedirectAttributes redirectAttributes) {
+        if (id != null) {
+            if (id > 0) {
+                contactService.deleteById(id);
+                redirectAttributes.addAttribute("message", "Le contact a bien été supprimé");
+            } else {
+                redirectAttributes.addAttribute("message", "Je ne connais ce contact");
+            }
         }
         return "redirect:/";
     }

@@ -17,6 +17,7 @@
     <h1>Page</h1>
     <div data-th-text="'Je suis un titre : ' + ${title}"></div>
 <!--    <div data-th-text="Un titre avec des pipes ${title}"></div>-->
+    <div data-th-if="${message}" data-th-text="${message}"></div>
     <br>
 
     <table>
@@ -36,11 +37,13 @@
             <td data-th-text="${contact.email}"></td>
             <td data-th-text="${contact.message}"></td>
             <td>
-                <a data-th-href="@{/contact/{id}/edit(id=${contact.id})}">Editer</a>
+                <a data-th-href="@{|/contact/${contact.id}/edit|}">Editer</a>
                 <a data-th-href="@{/contact/{id}/delete(id=${contact.id})}">Supprimer</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <br>
+    <button><a href="/">Accueil</a></button>
 </body>
 </html>
