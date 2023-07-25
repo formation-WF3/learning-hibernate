@@ -29,6 +29,8 @@
             <div>
                 <input type="text" data-th-field="*{email}">
             </div>
+            <span data-th-if="${#fields.hasErrors('email')}" data-th-errorclass="error" data-th-errors="*{email}"></span>
+            <span class="error" data-th-if="${emailError}" data-th-text="${emailError}"></span>
         </div>
         <div>
             <label data-th-for="message">Message</label>

@@ -2,7 +2,10 @@ package com.formation.learning_hibernate.controllers;
 
 
 import com.formation.learning_hibernate.entities.ContactEntity;
+import com.formation.learning_hibernate.services.ContactService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,8 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 @Controller
 public class IndexController {
+
+    private final ContactService contactService;
+
+    @Autowired
+    public IndexController(ContactService contactService) {
+        this.contactService = contactService;
+    }
 
     @GetMapping("/")
     public String index() {
@@ -21,6 +32,7 @@ public class IndexController {
     @GetMapping("/page")
     public String firstPage(Model model) {
         model.addAttribute("title", "Première page de Learning Hibernate");
+        model.addAttribute("contacts", contactService.findAll());
         return "page.html";
     }
 
@@ -38,6 +50,14 @@ public class IndexController {
         ) {
         if (contactBinding.hasErrors()) {
             model.addAttribute("contact", contact);
+            return "contact/form";
+        }
+        // save contact
+        try {
+            contactService.save(contact);
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("contact", contact);
+            model.addAttribute("emailError", "L'email existe déjà");
             return "contact/form";
         }
         return "redirect:/";
