@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hibernate</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/page">Première page</a></li>
+                <li><a href="#">Seconde page</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Contact</h1>
+
+    <form action="/contact" method="post" data-th-object="${contact}">
+        <div>
+            <label data-th-for="name">Prénom NOM</label>
+            <div>
+                <input type="text" data-th-field="*{name}">
+            </div>
+            <span data-th-if="${#fields.hasErrors('name')}" data-th-errorclass="error" data-th-errors="*{name}"></span>
+        </div>
+        <div>
+            <label data-th-for="email">Email</label>
+            <div>
+                <input type="text" data-th-field="*{email}">
+            </div>
+        </div>
+        <div>
+            <label data-th-for="message">Message</label>
+            <div>
+                <textarea data-th-field="*{message}" cols="50" rows="10"></textarea>
+            </div>
+        </div>
+        <div>
+            <button type="submit">Valider</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+</body>
+</html>
